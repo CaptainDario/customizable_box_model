@@ -65,29 +65,29 @@ module box(){
             }
         }
         if(barrel_jack_right){
-            translate([wall_thickness/2, wall_thickness + iB_depth/2, wall_thickness + iB_height/2]){
+            translate([wall_thickness*3/2 + iB_width, wall_thickness + iB_depth/2, wall_thickness + iB_height/2]){
                 rotate([0, 90, 0]){
                     cylinder(d=barrel_jack_d, h=wall_thickness+4*preview_margin, center=true);
                 }
             }
         }
         if(barrel_jack_bottom){
-            translate([wall_thickness/2, wall_thickness + iB_depth/2, wall_thickness + iB_height/2]){
-                rotate([0, 90, 0]){
+            translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, wall_thickness/2]){
+                rotate([0, 0, 0]){
                     cylinder(d=barrel_jack_d, h=wall_thickness+4*preview_margin, center=true);
                 }
             }
         }
         if(barrel_jack_back){
-            translate([wall_thickness/2, wall_thickness + iB_depth/2, wall_thickness + iB_height/2]){
-                rotate([0, 90, 0]){
+            translate([wall_thickness + iB_width/2, wall_thickness/2, wall_thickness + iB_height/2]){
+                rotate([90, 0, 0]){
                     cylinder(d=barrel_jack_d, h=wall_thickness+4*preview_margin, center=true);
                 }
             }
         }
         if(barrel_jack_front){
-            translate([wall_thickness/2, wall_thickness + iB_depth/2, wall_thickness + iB_height/2]){
-                rotate([0, 90, 0]){
+            translate([wall_thickness + iB_width/2, wall_thickness*3/2 + iB_depth, wall_thickness + iB_height/2]){
+                rotate([90, 0, 0]){
                     cylinder(d=barrel_jack_d, h=wall_thickness+4*preview_margin, center=true);
                 }
             }
@@ -96,12 +96,24 @@ module box(){
 }
 
 module lid(){
-    union(){
-        //outher shell
-        cube([iB_width + 2*wall_thickness, iB_depth + 2*wall_thickness, lid_height/2]);
-        //add longer part
-        translate([wall_thickness, wall_thickness, wall_thickness + preview_margin]){
-            cube([iB_width, iB_depth, lid_height/2]);
+    difference(){
+        union(){
+            //outher shell
+            cube([iB_width + 2*wall_thickness, iB_depth + 2*wall_thickness, lid_height/2]);
+            //add longer part
+            translate([wall_thickness, wall_thickness, lid_height/2 + preview_margin]){
+                cube([iB_width, iB_depth, lid_height/2]);
+            }
+        }
+
+        //connections
+        //barrel jack
+        if(barrel_jack_top){
+            translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, lid_height/2]){
+                rotate([0, 0, 0]){
+                    cylinder(d=barrel_jack_d, h=lid_height+4*preview_margin, center=true);
+                }
+            }
         }
     }
 }
