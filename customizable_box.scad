@@ -22,6 +22,13 @@ barrel_jack_left = false;
 square_left = false;
 //the size of the square
 square_left_size = [10, 10];
+//the text which should be written on the left side
+text_left = "";
+//should the text be extruded in intruded
+text_left_in_or_out = "in"; //[ex:extrude, in:intrude]
+text_left_size = 10;
+text_left_font = "";
+text_left_spacing = 1; //[0:0.1:100]
 
 /* [Right] */
 //add a barrel jack to the right side (+x)
@@ -40,17 +47,17 @@ square_top = false;
 square_top_size = [10, 10];
 
 /* [Bottom] */
-//add a barrel jack to the bottom side (z)
+//add a barrel jack to the bottom side (+z)
 barrel_jack_bottom = false;
-//add a cable hole to the bottom side (z)
+//add a cable hole to the bottom side (+z)
 square_bottom = false;
 //the size of the square
 square_bottom_size = [10, 10];
 
 /* [Front] */
-//add a barrel jack to the front side (y)
+//add a barrel jack to the front side (+y)
 barrel_jack_front = false;
-//add a cable hole to the front side (y)
+//add a cable hole to the front side (+y)
 square_front = false;
 //the size of the square
 square_front_size = [10, 10];
@@ -152,6 +159,19 @@ module box(){
         if(square_front){
             translate([wall_thickness + iB_width/2, wall_thickness*3/2 + iB_depth, wall_thickness + iB_height/2]){
                 cube([square_front_size[0], wall_thickness+4*preview_margin, square_front_size[1]], center=true);
+            }
+        }
+
+        //TEXT (intrusion)
+        //left
+        if(text_left != "" && text_left_in_or_out == "in"){
+            translate([wall_thickness/2-preview_margin, wall_thickness+iB_depth/2, wall_thickness+iB_height/2]){
+                rotate([90, 0, -90]){
+                    linear_extrude(wall_thickness/2){
+                        text(text=text_left, size=text_left_size, font=text_left_font, spacing=text_left_spacing,
+                            halign="center", valign="center");
+                    }
+                }
             }
         }
     }
