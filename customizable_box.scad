@@ -28,6 +28,18 @@ barrel_jack_bottom = false;
 barrel_jack_back = false;
 //add a barrel jack to the front side (y)
 barrel_jack_front = false;
+//add a cable hole to the left side (-x)
+cable_left = false;
+//add a cable hole to the right side (+x)
+cable_right = false;
+//add a cable hole to the top side (-z)
+cable_top = false;
+//add a cable hole to the bottom side (z)
+cable_bottom = false;
+//add a cable hole to the back side (-y)
+cable_back = false;
+//add a cable hole to the front side (y)
+cable_front = false;
 
 /* [Render Options] */
 //show the lid
@@ -92,6 +104,32 @@ module box(){
                 }
             }
         }
+        //add cable holes 
+        if(cable_left){
+            translate([wall_thickness/2, wall_thickness + iB_depth/2, wall_thickness + iB_height/2]){
+                cube([wall_thickness+4*preview_margin, 10, 10], center=true);
+            }
+        }
+        if(cable_right){
+            translate([wall_thickness*3/2 + iB_width, wall_thickness + iB_depth/2, wall_thickness + iB_height/2]){
+                cube([wall_thickness+4*preview_margin, 10, 10], center=true);
+            }
+        }
+        if(cable_bottom){
+            translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, wall_thickness/2]){
+                cube([10, 10, wall_thickness+4*preview_margin], center=true);
+            }
+        }
+        if(cable_back){
+            translate([wall_thickness + iB_width/2, wall_thickness/2, wall_thickness + iB_height/2]){
+                cube([10, wall_thickness+4*preview_margin, 10], center=true);
+            }
+        }
+        if(cable_front){
+            translate([wall_thickness + iB_width/2, wall_thickness*3/2 + iB_depth, wall_thickness + iB_height/2]){
+                cube([10, wall_thickness+4*preview_margin, 10], center=true);
+            }
+        }
     }
 }
 
@@ -113,6 +151,12 @@ module lid(){
                 rotate([0, 0, 0]){
                     cylinder(d=barrel_jack_d, h=lid_height+4*preview_margin, center=true);
                 }
+            }
+        }
+        //cables
+        if(cable_top){
+            translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, lid_height/2]){
+                cube([10, 10, lid_height+4*preview_margin], center=true);
             }
         }
     }
