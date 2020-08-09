@@ -15,31 +15,55 @@ wall_thickness = 2;
 //the height of the lid
 lid_height = 3;
 
-/* [Connections] */
+/* [Left] */
 //add a barrel jack to the left side (-x)
 barrel_jack_left = false;
+//add a cable hole to the left side (-x)
+square_left = false;
+//the size of the square
+square_left_size = [10, 10];
+
+/* [Right] */
 //add a barrel jack to the right side (+x)
 barrel_jack_right = false;
+//add a cable hole to the right side (+x)
+square_right = false;
+//the size of the square
+square_right_size = [10, 10];
+
+/* [Top] */
 //add a barrel jack to the top side (-z)
 barrel_jack_top = false;
+//add a cable hole to the top side (-z)
+square_top = false;
+//the size of the square
+square_top_size = [10, 10];
+
+/* [Bottom] */
 //add a barrel jack to the bottom side (z)
 barrel_jack_bottom = false;
-//add a barrel jack to the back side (-y)
-barrel_jack_back = false;
+//add a cable hole to the bottom side (z)
+square_bottom = false;
+//the size of the square
+square_bottom_size = [10, 10];
+
+/* [Front] */
 //add a barrel jack to the front side (y)
 barrel_jack_front = false;
-//add a cable hole to the left side (-x)
-cable_left = false;
-//add a cable hole to the right side (+x)
-cable_right = false;
-//add a cable hole to the top side (-z)
-cable_top = false;
-//add a cable hole to the bottom side (z)
-cable_bottom = false;
-//add a cable hole to the back side (-y)
-cable_back = false;
 //add a cable hole to the front side (y)
-cable_front = false;
+square_front = false;
+//the size of the square
+square_front_size = [10, 10];
+
+/* [Back] */
+//add a barrel jack to the back side (-y)
+barrel_jack_back = false;
+//add a cable hole to the back side (-y)
+square_back = false;
+//the size of the square
+square_back_size = [10, 10];
+
+
 
 /* [Render Options] */
 //show the lid
@@ -105,29 +129,29 @@ module box(){
             }
         }
         //add cable holes 
-        if(cable_left){
+        if(square_left){
             translate([wall_thickness/2, wall_thickness + iB_depth/2, wall_thickness + iB_height/2]){
-                cube([wall_thickness+4*preview_margin, 10, 10], center=true);
+                cube(concat(wall_thickness+4*preview_margin, square_left_size), center=true);
             }
         }
-        if(cable_right){
+        if(square_right){
             translate([wall_thickness*3/2 + iB_width, wall_thickness + iB_depth/2, wall_thickness + iB_height/2]){
-                cube([wall_thickness+4*preview_margin, 10, 10], center=true);
+                cube(concat(wall_thickness+4*preview_margin, square_right_size), center=true);
             }
         }
-        if(cable_bottom){
+        if(square_bottom){
             translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, wall_thickness/2]){
-                cube([10, 10, wall_thickness+4*preview_margin], center=true);
+                cube(concat(square_bottom_size, wall_thickness+4*preview_margin), center=true);
             }
         }
-        if(cable_back){
+        if(square_back){
             translate([wall_thickness + iB_width/2, wall_thickness/2, wall_thickness + iB_height/2]){
-                cube([10, wall_thickness+4*preview_margin, 10], center=true);
+                cube([square_back_size[0], wall_thickness+4*preview_margin, square_back_size[1]], center=true);
             }
         }
-        if(cable_front){
+        if(square_front){
             translate([wall_thickness + iB_width/2, wall_thickness*3/2 + iB_depth, wall_thickness + iB_height/2]){
-                cube([10, wall_thickness+4*preview_margin, 10], center=true);
+                cube([square_front_size[0], wall_thickness+4*preview_margin, square_front_size[1]], center=true);
             }
         }
     }
@@ -154,9 +178,9 @@ module lid(){
             }
         }
         //cables
-        if(cable_top){
+        if(square_top){
             translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, lid_height/2]){
-                cube([10, 10, lid_height+4*preview_margin], center=true);
+                cube(concat(square_top_size, lid_height+4*preview_margin), center=true);
             }
         }
     }
