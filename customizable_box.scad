@@ -272,6 +272,18 @@ module lid(){
                 cube(concat(square_top_size, lid_height+4*preview_margin), center=true);
             }
         }
+        //text
+        //top
+        if(text_top != ""){
+            translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, 0]){
+                rotate([0, 180, 180]){
+                    linear_extrude(wall_thickness/2){
+                        text(text=text_top, size=text_top_size, font=text_top_font, spacing=text_top_spacing,
+                            halign="center", valign="center");
+                    }
+                }
+            }
+        }
     }
 }
 
