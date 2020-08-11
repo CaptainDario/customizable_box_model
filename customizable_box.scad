@@ -3,7 +3,7 @@
 
 /* [box dimensions] */
 //inner box length
-iB_width = 30;
+iB_width = 40;
 //inner box depth
 iB_depth  = 30;
 //inner box height
@@ -37,6 +37,11 @@ barrel_jack_right = false;
 square_right = false;
 //the size of the square
 square_right_size = [10, 10];
+//the text which should be written on the right side
+text_right = "";
+text_right_size = 10;
+text_right_font = "";
+text_right_spacing = 1; //[0:0.1:100]
 
 /* [Top] */
 //add a barrel jack to the top side (-z)
@@ -45,6 +50,11 @@ barrel_jack_top = false;
 square_top = false;
 //the size of the square
 square_top_size = [10, 10];
+//the text which should be written on the top side
+text_top = "";
+text_top_size = 10;
+text_top_font = "";
+text_top_spacing = 1; //[0:0.1:100]
 
 /* [Bottom] */
 //add a barrel jack to the bottom side (+z)
@@ -53,6 +63,11 @@ barrel_jack_bottom = false;
 square_bottom = false;
 //the size of the square
 square_bottom_size = [10, 10];
+//the text which should be written on the bottom side
+text_bottom = "";
+text_bottom_size = 10;
+text_bottom_font = "";
+text_bottom_spacing = 1; //[0:0.1:100]
 
 /* [Front] */
 //add a barrel jack to the front side (+y)
@@ -61,6 +76,11 @@ barrel_jack_front = false;
 square_front = false;
 //the size of the square
 square_front_size = [10, 10];
+//the text which should be written on the front side
+text_front = "";
+text_front_size = 10;
+text_front_font = "";
+text_front_spacing = 1; //[0:0.1:100]
 
 /* [Back] */
 //add a barrel jack to the back side (-y)
@@ -69,6 +89,11 @@ barrel_jack_back = false;
 square_back = false;
 //the size of the square
 square_back_size = [10, 10];
+//the text which should be written on the back side
+text_back = "";
+text_back_size = 10;
+text_back_font = "";
+text_back_spacing = 1; //[0:0.1:100]
 
 
 
@@ -77,6 +102,8 @@ square_back_size = [10, 10];
 show_lid = false;
 //show the box
 show_box = true;
+//resolution
+$fn = 100;
 
 /* [Hidden] */
 //DIMENSIONS
@@ -84,9 +111,7 @@ show_box = true;
 barrel_jack_d = 8;
 
 //margin for the overlaps so that the preview gets right
-preview_margin = 0.001;
-//resolution
-$fn = 100;
+preview_margin = 0.01;
 
 
 module box(){
@@ -164,11 +189,55 @@ module box(){
 
         //TEXT (intrusion)
         //left
-        if(text_left != "" && text_left_in_or_out == "in"){
+        if(text_left != ""){
             translate([wall_thickness/2-preview_margin, wall_thickness+iB_depth/2, wall_thickness+iB_height/2]){
                 rotate([90, 0, -90]){
                     linear_extrude(wall_thickness/2){
                         text(text=text_left, size=text_left_size, font=text_left_font, spacing=text_left_spacing,
+                            halign="center", valign="center");
+                    }
+                }
+            }
+        }
+        //right
+        if(text_right != ""){
+            translate([wall_thickness*2 + iB_width, wall_thickness + iB_depth/2, wall_thickness + iB_height/2]){
+                rotate([90, 0, 90]){
+                    linear_extrude(wall_thickness/2){
+                        text(text=text_right, size=text_right_size, font=text_right_font, spacing=text_right_spacing,
+                            halign="center", valign="center");
+                    }
+                }
+            }
+        }
+        //bottom
+        if(text_bottom != ""){
+            translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, 0]){
+                rotate([0, 180, 180]){
+                    linear_extrude(wall_thickness/2){
+                        text(text=text_bottom, size=text_bottom_size, font=text_bottom_font, spacing=text_bottom_spacing,
+                            halign="center", valign="center");
+                    }
+                }
+            }
+        }
+        //back
+        if(text_back != ""){
+            translate([wall_thickness + iB_width/2, 2*wall_thickness + iB_depth, wall_thickness + iB_height/2]){
+                rotate([90, 0, 180]){
+                    linear_extrude(wall_thickness/2){
+                        text(text=text_back, size=text_back_size, font=text_back_font, spacing=text_back_spacing,
+                            halign="center", valign="center");
+                    }
+                }
+            }
+        }
+        //front
+        if(text_front != ""){
+            translate([wall_thickness + iB_width/2, 0, wall_thickness + iB_height/2]){
+                rotate([90, 0, 0]){
+                    linear_extrude(wall_thickness/2){
+                        text(text=text_front, size=text_front_size, font=text_front_font, spacing=text_front_spacing,
                             halign="center", valign="center");
                     }
                 }
