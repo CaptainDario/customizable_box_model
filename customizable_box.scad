@@ -22,6 +22,11 @@ barrel_jack_left = false;
 square_left = false;
 //the size of the square
 square_left_size = [10, 10];
+//air holes
+holes_left         = false;
+holes_left_d       = 2;
+holes_left_rows    = 5;
+holes_left_columns = 5;
 //the text which should be written on the left side
 text_left = "";
 //should the text be extruded in intruded
@@ -37,6 +42,11 @@ barrel_jack_right = false;
 square_right = false;
 //the size of the square
 square_right_size = [10, 10];
+//air holes
+holes_right         = false;
+holes_right_d       = 2;
+holes_right_rows    = 5;
+holes_right_columns = 5;
 //the text which should be written on the right side
 text_right = "";
 text_right_size = 10;
@@ -50,6 +60,11 @@ barrel_jack_top = false;
 square_top = false;
 //the size of the square
 square_top_size = [10, 10];
+//air holes
+holes_top         = false;
+holes_top_d       = 2;
+holes_top_rows    = 5;
+holes_top_columns = 5;
 //the text which should be written on the top side
 text_top = "";
 text_top_size = 10;
@@ -63,6 +78,11 @@ barrel_jack_bottom = false;
 square_bottom = false;
 //the size of the square
 square_bottom_size = [10, 10];
+//air holes
+holes_bottom         = false;
+holes_bottom_d       = 2;
+holes_bottom_rows    = 5;
+holes_bottom_columns = 5;
 //the text which should be written on the bottom side
 text_bottom = "";
 text_bottom_size = 10;
@@ -76,6 +96,11 @@ barrel_jack_front = false;
 square_front = false;
 //the size of the square
 square_front_size = [10, 10];
+//air holes
+holes_front         = false;
+holes_front_d       = 2;
+holes_front_rows    = 5;
+holes_front_columns = 5;
 //the text which should be written on the front side
 text_front = "";
 text_front_size = 10;
@@ -89,6 +114,11 @@ barrel_jack_back = false;
 square_back = false;
 //the size of the square
 square_back_size = [10, 10];
+//air holes
+holes_back         = false;
+holes_back_d       = 2;
+holes_back_rows    = 5;
+holes_back_columns = 5;
 //the text which should be written on the back side
 text_back = "";
 text_back_size = 10;
@@ -187,6 +217,53 @@ module box(){
             }
         }
 
+        //add air holes
+        if(holes_left){
+            translate([holes_left_d, wall_thickness, wall_thickness]) {
+                rotate([0, -90, 0]){
+                    #circles(d=holes_left_d, h=wall_thickness,
+                            row=holes_left_rows, column=holes_left_columns,
+                            height=iB_depth, width=iB_height);
+                }
+            }
+        }
+        if(holes_right){
+            translate([2*wall_thickness+iB_width, wall_thickness, wall_thickness]) {
+                rotate([0, -90, 0]){
+                    #circles(d=holes_left_d, h=wall_thickness,
+                            row=holes_left_rows, column=holes_left_columns,
+                            height=iB_depth, width=iB_height);
+                }
+            }
+        }
+        if(holes_bottom){
+            translate([wall_thickness, wall_thickness, 0]) {
+                rotate([0, 0, 0]){
+                    #circles(d=holes_left_d, h=wall_thickness,
+                            row=holes_left_rows, column=holes_left_columns,
+                            height=iB_depth, width=iB_width);
+                }
+            }
+        }
+        if(holes_back){
+            translate([wall_thickness, 0, wall_thickness]) {
+                rotate([0, -90, -90]){
+                    #circles(d=holes_left_d, h=wall_thickness,
+                            row=holes_left_rows, column=holes_left_columns,
+                            height=iB_width, width=iB_height);
+                }
+            }
+        }
+        if(holes_front){
+            translate([wall_thickness, wall_thickness+iB_depth, wall_thickness]) {
+                rotate([0, -90, -90]){
+                    #circles(d=holes_left_d, h=wall_thickness,
+                            row=holes_left_rows, column=holes_left_columns,
+                            height=iB_width, width=iB_height);
+                }
+            }
+        }
+
         //TEXT (intrusion)
         //left
         if(text_left != ""){
@@ -272,6 +349,16 @@ module lid(){
                 cube(concat(square_top_size, lid_height+4*preview_margin), center=true);
             }
         }
+        //air holes
+        if(holes_top){
+            translate([wall_thickness, wall_thickness, 0]) {
+                rotate([0, 0, 0]){
+                    #circles(d=holes_left_d, h=lid_height,
+                            row=holes_left_rows, column=holes_left_columns,
+                            height=iB_depth, width=iB_width);
+                }
+            }
+        }
         //text
         //top
         if(text_top != ""){
@@ -282,6 +369,16 @@ module lid(){
                             halign="center", valign="center");
                     }
                 }
+            }
+        }
+    }
+}
+
+module circles(d=5, h=3, row=10, column=5, height=10, width=10){
+    for (x=[d : width/row - 2*d/row : width]) {
+        for (y=[d : height/column - 2*d/column : height]) {
+            translate([x, y, 0]) {
+                cylinder(d=d, h=h+preview_margin);
             }
         }
     }
