@@ -1,5 +1,5 @@
 
-
+text_intrusion = 1;
 
 /* [box dimensions] */
 //inner box length
@@ -267,9 +267,9 @@ module box(){
         //TEXT (intrusion)
         //left
         if(text_left != ""){
-            translate([wall_thickness/2-preview_margin, wall_thickness+iB_depth/2, wall_thickness+iB_height/2]){
+            translate([text_intrusion-preview_margin, wall_thickness+iB_depth/2, wall_thickness+iB_height/2]){
                 rotate([90, 0, -90]){
-                    linear_extrude(wall_thickness/2){
+                    linear_extrude(text_intrusion){
                         text(text=text_left, size=text_left_size, font=text_left_font, spacing=text_left_spacing,
                             halign="center", valign="center");
                     }
@@ -278,9 +278,9 @@ module box(){
         }
         //right
         if(text_right != ""){
-            translate([wall_thickness*2 + iB_width, wall_thickness + iB_depth/2, wall_thickness + iB_height/2]){
+            translate([wall_thickness*2 + iB_width - text_intrusion, wall_thickness + iB_depth/2, wall_thickness + iB_height/2]){
                 rotate([90, 0, 90]){
-                    linear_extrude(wall_thickness/2){
+                    linear_extrude(text_intrusion){
                         text(text=text_right, size=text_right_size, font=text_right_font, spacing=text_right_spacing,
                             halign="center", valign="center");
                     }
@@ -289,9 +289,9 @@ module box(){
         }
         //bottom
         if(text_bottom != ""){
-            translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, 0]){
-                rotate([0, 180, 180]){
-                    linear_extrude(wall_thickness/2){
+            translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, text_intrusion]){
+                rotate([0, 180, 90]){
+                    linear_extrude(text_intrusion){
                         text(text=text_bottom, size=text_bottom_size, font=text_bottom_font, spacing=text_bottom_spacing,
                             halign="center", valign="center");
                     }
@@ -300,9 +300,9 @@ module box(){
         }
         //back
         if(text_back != ""){
-            translate([wall_thickness + iB_width/2, 2*wall_thickness + iB_depth, wall_thickness + iB_height/2]){
+            translate([wall_thickness + iB_width/2, 2*wall_thickness + iB_depth - text_intrusion, wall_thickness + iB_height/2]){
                 rotate([90, 0, 180]){
-                    linear_extrude(wall_thickness/2){
+                    linear_extrude(text_intrusion){
                         text(text=text_back, size=text_back_size, font=text_back_font, spacing=text_back_spacing,
                             halign="center", valign="center");
                     }
@@ -311,9 +311,9 @@ module box(){
         }
         //front
         if(text_front != ""){
-            translate([wall_thickness + iB_width/2, 0, wall_thickness + iB_height/2]){
+            translate([wall_thickness + iB_width/2, text_intrusion, wall_thickness + iB_height/2]){
                 rotate([90, 0, 0]){
-                    linear_extrude(wall_thickness/2){
+                    linear_extrude(text_intrusion){
                         text(text=text_front, size=text_front_size, font=text_front_font, spacing=text_front_spacing,
                             halign="center", valign="center");
                     }
@@ -362,9 +362,9 @@ module lid(){
         //text
         //top
         if(text_top != ""){
-            translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, 0]){
-                rotate([0, 180, 180]){
-                    linear_extrude(wall_thickness/2){
+            translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, text_intrusion]){
+                rotate([0, 180, 90]){
+                    linear_extrude(text_intrusion){
                         text(text=text_top, size=text_top_size, font=text_top_font, spacing=text_top_spacing,
                             halign="center", valign="center");
                     }
