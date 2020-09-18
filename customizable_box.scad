@@ -290,7 +290,7 @@ module box(){
         //bottom
         if(text_bottom != ""){
             translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, text_intrusion]){
-                rotate([0, 180, 90]){
+                rotate([0, 180, 0]){
                     linear_extrude(text_intrusion){
                         text(text=text_bottom, size=text_bottom_size, font=text_bottom_font, spacing=text_bottom_spacing,
                             halign="center", valign="center");
@@ -363,7 +363,7 @@ module lid(){
         //top
         if(text_top != ""){
             translate([wall_thickness + iB_width/2, wall_thickness + iB_depth/2, text_intrusion]){
-                rotate([0, 180, 90]){
+                rotate([0, 180, 0]){
                     linear_extrude(text_intrusion){
                         text(text=text_top, size=text_top_size, font=text_top_font, spacing=text_top_spacing,
                             halign="center", valign="center");
